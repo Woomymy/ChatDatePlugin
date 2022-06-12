@@ -1,8 +1,8 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.7.0"
 
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.1"
+    id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -24,13 +24,12 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-    // Use the Kotlin JDK 8 standard library.
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.0")
 
     // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1.1-jre")
-    compileOnly("org.spigotmc:spigot-api:1.18-R0.1-SNAPSHOT") // The Spigot API with no shadowing. Requires the OSS repo.
-    library("com.google.code.gson", "gson", "2.8.7")
+    compileOnly("org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT") // The Spigot API with no shadowing. Requires the OSS repo.
+    library("com.google.code.gson", "gson", "2.9.0")
 }
 
 testing {
@@ -50,9 +49,9 @@ application {
 
 bukkit {
     name = "ChatDatePlugin"
-    version = "1.1.0"
+    version = "1.1.1"
     author = "Woomymy"
     main = "ovh.woomy.chatplugin.Plugin"
-    apiVersion = "1.18"
+    apiVersion = "1.19"
 }
 
