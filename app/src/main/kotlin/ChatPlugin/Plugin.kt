@@ -1,74 +1,83 @@
 package ovh.woomy.chatplugin
 
-import org.bukkit.plugin.java.JavaPlugin
-import org.bukkit.Bukkit
+import io.papermc.paper.event.player.AsyncChatEvent
 import java.util.Calendar
-import org.bukkit.event.Listener
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
-import org.bukkit.event.player.AsyncPlayerChatEvent
+import org.bukkit.event.Listener
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
-import org.bukkit.event.entity.PlayerDeathEvent
+import org.bukkit.plugin.java.JavaPlugin
 
 /*
  * Simple chat plugin that adds date
- * 
+ *
  * @author Woomymy
  */
-public class Plugin: JavaPlugin(), Listener {
+public class Plugin : JavaPlugin(), Listener {
     companion object {
-        public val logger = Bukkit.getLogger() 
+        public val logger = Bukkit.getLogger()
     }
 
     override fun onEnable() {
         logger.info { "Enabling ${this}" }
-        Bukkit.getPluginManager().registerEvents(this,this);
+        Bukkit.getPluginManager().registerEvents(this, this)
     }
 
     override fun onDisable() {
-        logger.info {
-            "Disabling ${this}"
+        logger.info { "Disabling ${this}" }
+    }
+
+    /** Format date to [hh:mm:ss] */
+    fun formatDate(): String {
+        var cal = Calendar.getInstance()
+        return "${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)}:${cal.get(Calendar.SECOND)}"
+    }
+
+    /** Add dates in chat messages */
+    @EventHandler
+    public fun onPlayerChat(chatEvent: AsyncChatEvent) {
+        if (chatEvent.isCancelled()) return
+        val message = chatEvent.message()
+        chatEvent.message(
+                Component.text("<${formatDate()}> ", NamedTextColor.GOLD)
+                        .append(message.color(NamedTextColor.WHITE))
+        )
+    }
+
+    /** Add date to join messages */
+    @EventHandler
+    public fun onPlayerJoin(joinEvent: PlayerJoinEvent) {
+        val joinMessage = joinEvent.joinMessage()
+        if (joinMessage !== null) {
+            joinEvent.joinMessage(
+                    Component.text("[${formatDate()}] ", NamedTextColor.YELLOW).append(joinMessage)
+            )
         }
     }
 
-    /**
-     * Format date to [hh:mm:ss]
-     */
-    fun formatDate(): String {
-        var cal = Calendar.getInstance();
-        return "[${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)}:${cal.get(Calendar.SECOND)}]"
-    }
-
-    /**
-     * Add dates in chat messages
-     */
-    @EventHandler
-    public fun onPlayerChat(chatEvent: AsyncPlayerChatEvent) {
-        if (chatEvent.isCancelled()) return;
-        chatEvent.setFormat("§6${formatDate()}§r <§3%1\$s§f>: %2\$s")
-    }
-
-    /**
-     * Add date to join messages
-     */
-    @EventHandler
-    public fun onPlayerJoin(joinEvent: PlayerJoinEvent) {
-        joinEvent.setJoinMessage("§6${formatDate()}§r ${joinEvent.getJoinMessage()}");
-    }
-
-    /**
-     * Add date to leave message
-     */
+    /** Add date to leave message */
     @EventHandler
     public fun onPlayerQuit(quitEvent: PlayerQuitEvent) {
-        quitEvent.setQuitMessage("§6${formatDate()}§r ${quitEvent.getQuitMessage()}");
+        val quitMessage = quitEvent.quitMessage()
+        if (quitMessage !== null) {
+            quitEvent.quitMessage(
+                    Component.text("[${formatDate()}] ", NamedTextColor.GOLD).append(quitMessage)
+            )
+        }
     }
 
-    /**
-     * Add date to death message
-     */
+    /** Add date to death message */
     @EventHandler
     public fun onPlayerDeath(deathEvent: PlayerDeathEvent) {
-        deathEvent.setDeathMessage("§6${formatDate()}§r ${deathEvent.getDeathMessage()}");
+        val deathMessage = deathEvent.deathMessage()
+        if (deathMessage !== null) {
+            deathEvent.deathMessage(
+                    Component.text("[${formatDate()}] ", NamedTextColor.GOLD).append(deathMessage)
+            )
+        }
     }
 }
