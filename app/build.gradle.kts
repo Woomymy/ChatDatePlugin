@@ -49,7 +49,7 @@ application {
 
 bukkit {
     name = "ChatDatePlugin"
-    version = "1.1.1"
+    version = "1.1.2"
     author = "Woomymy"
     main = "ovh.woomy.chatplugin.Plugin"
     apiVersion = "1.19"
