@@ -54,7 +54,7 @@ public class Plugin : JavaPlugin(), Listener {
         val joinMessage = joinEvent.joinMessage()
         if (joinMessage !== null) {
             joinEvent.joinMessage(
-                    Component.text("[${formatDate()}] ", NamedTextColor.YELLOW).append(joinMessage)
+                    Component.text("[${formatDate()}] ", NamedTextColor.GREEN).append(joinMessage)
             )
         }
     }
@@ -65,7 +65,7 @@ public class Plugin : JavaPlugin(), Listener {
         val quitMessage = quitEvent.quitMessage()
         if (quitMessage !== null) {
             quitEvent.quitMessage(
-                    Component.text("[${formatDate()}] ", NamedTextColor.GOLD).append(quitMessage)
+                    Component.text("[${formatDate()}] ", NamedTextColor.RED).append(quitMessage)
             )
         }
     }
@@ -76,7 +76,7 @@ public class Plugin : JavaPlugin(), Listener {
         val deathMessage = deathEvent.deathMessage()
         if (deathMessage !== null) {
             deathEvent.deathMessage(
-                    Component.text("[${formatDate()}] ", NamedTextColor.GOLD).append(deathMessage)
+                    Component.text("[${formatDate()}] ", NamedTextColor.DARK_RED).append(deathMessage)
             )
         }
     }
