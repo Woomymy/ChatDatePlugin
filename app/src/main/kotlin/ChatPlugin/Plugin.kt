@@ -1,4 +1,4 @@
-package ovh.woomy.chatplugin
+package be.woomy.chatplugin
 
 import io.papermc.paper.event.player.AsyncChatEvent
 import java.util.Calendar

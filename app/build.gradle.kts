@@ -51,7 +51,7 @@ bukkit {
     name = "ChatDatePlugin"
     version = "1.1.2"
     author = "Woomymy"
-    main = "ovh.woomy.chatplugin.Plugin"
+    main = "be.woomy.chatplugin.Plugin"
     apiVersion = "1.19"
 }
 
