@@ -1,8 +1,8 @@
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id("org.jetbrains.kotlin.jvm") version "1.7.0"
+    id("org.jetbrains.kotlin.jvm") version "1.9.0"
 
-    id("net.minecrell.plugin-yml.bukkit") version "0.5.2"
+    id("net.minecrell.plugin-yml.bukkit") version "0.6.0"
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
@@ -23,12 +23,12 @@ dependencies {
     // Align versions of all Kotlin components
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
 
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.7.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.9.0")
 
     // This dependency is used by the application.
-    implementation("com.google.guava:guava:30.1.1-jre")
-    compileOnly("io.papermc.paper:paper-api:1.19-R0.1-SNAPSHOT")
-    library("com.google.code.gson", "gson", "2.9.0")
+    implementation("com.google.guava:guava:32.1.1-jre")
+    compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
+    library("com.google.code.gson", "gson", "2.10.1")
 }
 
 testing {
@@ -49,10 +49,10 @@ application {
 
 bukkit {
     name = "ChatDatePlugin"
-    version = "1.1.2"
+    version = "1.1.3"
     author = "Woomymy"
     main = "be.woomy.chatplugin.Plugin"
-    apiVersion = "1.19"
+    apiVersion = "1.20"
 }
 
 tasks.jar {
